@@ -1,0 +1,17 @@
+D:\Projects\ParkingSoftware\MPS\Parking.Database\bin\Debug\Parking.Database.dll
+D:\Projects\ParkingSoftware\MPS\Parking.Database\bin\Debug\Parking.Database.pdb
+D:\Projects\ParkingSoftware\MPS\Parking.Database\bin\Debug\Parking.Common.dll
+D:\Projects\ParkingSoftware\MPS\Parking.Database\bin\Debug\Parking.Interfaces.dll
+D:\Projects\ParkingSoftware\MPS\Parking.Database\bin\Debug\Microsoft.PointOfService.dll
+D:\Projects\ParkingSoftware\MPS\Parking.Database\bin\Debug\zxing.dll
+D:\Projects\ParkingSoftware\MPS\Parking.Database\bin\Debug\Newtonsoft.Json.Net20.dll
+D:\Projects\ParkingSoftware\MPS\Parking.Database\bin\Debug\Parking.Common.pdb
+D:\Projects\ParkingSoftware\MPS\Parking.Database\bin\Debug\Parking.Interfaces.pdb
+D:\Projects\ParkingSoftware\MPS\Parking.Database\bin\Debug\Microsoft.PointOfService.xml
+D:\Projects\ParkingSoftware\MPS\Parking.Database\bin\Debug\zxing.pdb
+D:\Projects\ParkingSoftware\MPS\Parking.Database\bin\Debug\zxing.xml
+D:\Projects\ParkingSoftware\MPS\Parking.Database\obj\Debug\Parking.Database.csprojAssemblyReference.cache
+D:\Projects\ParkingSoftware\MPS\Parking.Database\obj\Debug\Parking.Database.csproj.CoreCompileInputs.cache
+D:\Projects\ParkingSoftware\MPS\Parking.Database\obj\Debug\Parking.Database.csproj.CopyComplete
+D:\Projects\ParkingSoftware\MPS\Parking.Database\obj\Debug\Parking.Database.dll
+D:\Projects\ParkingSoftware\MPS\Parking.Database\obj\Debug\Parking.Database.pdb
