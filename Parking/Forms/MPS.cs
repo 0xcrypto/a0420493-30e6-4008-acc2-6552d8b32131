@@ -16,7 +16,7 @@ namespace Parking.Exit.Forms
             InitializeComponent();
             parkingDatabaseFactory = new ParkingDatabaseFactory();
 
-            mpsSetting = ConfigurationReader.GetMPSConfigurationSettings();
+            mpsSetting = MPSConfigurationReader.GetConfigurationSettings();
 
            // if (mpsSetting.MPSDeviceID == null)
              //   FileLogger.Log($"Problem Loading Configuration Information from Configuration File");

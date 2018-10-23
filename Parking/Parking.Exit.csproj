@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{38F9EEA4-0F89-4819-B4D7-B1D4C487AA8C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Parking.Entry</RootNamespace>
-    <AssemblyName>Parking.Entry</AssemblyName>
+    <RootNamespace>Parking.Exit</RootNamespace>
+    <AssemblyName>Parking.Exit</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
