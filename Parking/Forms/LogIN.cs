@@ -1,4 +1,5 @@
 ﻿using Parking.Common;
+using Parking.Database.CommandFactory;
 using System;
 using System.Threading;
 using System.Windows.Forms;
@@ -7,9 +8,12 @@ namespace Parking.Exit.Forms
 {
     public partial class LogIN : Form
     {
+
+        private readonly ParkingDatabaseFactory _parkingDatabaseFactory;
         public LogIN()
         {
             InitializeComponent();
+            _parkingDatabaseFactory = new ParkingDatabaseFactory();
         }
 
         private void btn_Submit_Click(object sender, EventArgs e)
@@ -31,11 +35,13 @@ namespace Parking.Exit.Forms
                 {
                     MessageBox.Show("Invalid Credentials, Please Enter valid credentials", null, MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                     return;
-                }
+                }                
+
+                //Make Entry for MPS User
+                var mpsUserEntryRecordIdentifier =_parkingDatabaseFactory.SaveMPSUserShiftEntry(MPSConfigurationReader.GetConfigurationSettings().MPSDeviceID, MPSConfigurationReader.GetConfigurationSettings().UserID, DateTime.Now.ToString());
 
                 //Show MPS Screen
-                ThreadPool.QueueUserWorkItem(MPSLaunch);
-
+                ThreadPool.QueueUserWorkItem(MPSLaunch, mpsUserEntryRecordIdentifier);
                 //Hide Log-In Screen
                 this.Hide();
             }
@@ -48,7 +54,7 @@ namespace Parking.Exit.Forms
 
         private void MPSLaunch(object Object)
         {
-            var mps = new MPS();
+            var mps = new MPS(Object.ToString());
             mps.ShowDialog();
         }
     }

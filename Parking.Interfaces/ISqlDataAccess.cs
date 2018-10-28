@@ -57,6 +57,15 @@ namespace Parking.Interfaces
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        DataTable ExecuteDataReturningStoredProcedure(SqlCommand command);
+
+        /// <summary>
+        /// 
+        /// </summary>
         string ConnectionString { get; set; }
+
+        object ExecuteNonQueryReturnsIdentity(string sql);
     }
 }

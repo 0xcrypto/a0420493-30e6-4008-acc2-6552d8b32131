@@ -77,6 +77,22 @@ namespace Parking.Database
                 throw;
             }
         }
+        public object ExecuteNonQueryReturnsIdentity(string sql)
+        {
+            try
+            {
+                SqlCommand cmd = GetCommand(sql);
+                cmd.Connection.Open();
+                var result = cmd.ExecuteScalar();
+                cmd.Connection.Close();
+                return result;
+            }
+            catch (System.Exception e)
+            {
+                FileLogger.Log($"Sql Data Access error (Unable to execute Sql ExecuteNonQueryReturnsIdentity) : {e.Message}");
+                throw;
+            }
+        }
 
         public int ExecuteNonQuery(SqlCommand command)
         {
@@ -111,7 +127,7 @@ namespace Parking.Database
                 FileLogger.Log($"Sql Data Access error (Unable to execute Stored Proceddure) : {e.Message}");
                 throw;
             }
-        }
+        }      
 
         public int ExecuteStoredProcedure(SqlCommand command)
         {
@@ -130,6 +146,26 @@ namespace Parking.Database
             }
         }
 
+        public DataTable ExecuteDataReturningStoredProcedure(SqlCommand command)
+        {
+            try
+            {
+                var result = new DataTable();
+                command.Connection = new SqlConnection(ConnectionString);
+                command.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+                command.Connection.Open();
+                dataAdapter.Fill(result);
+                command.Connection.Close();
+                return result;
+            }
+            catch (System.Exception e)
+            {
+                FileLogger.Log($"Sql Data Access error (Unable to execute Data Returning SqlCommand Stored Procedure) : {e.Message}");
+                throw;
+            }
+        }
+        
         public string ConnectionString
         {
             get

@@ -37,13 +37,13 @@
             this.lbl_OutTime = new System.Windows.Forms.Label();
             this.lbl_Duration = new System.Windows.Forms.Label();
             this.lbl_ToBePaid = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
+            this.btn_LostTicket = new System.Windows.Forms.Button();
+            this.btn_PendingVehicle = new System.Windows.Forms.Button();
+            this.btn_UnsendRecord = new System.Windows.Forms.Button();
+            this.btn_SaveAndPrint = new System.Windows.Forms.Button();
+            this.btn_VehicleStatus = new System.Windows.Forms.Button();
+            this.btn_ComplimentaryTicket = new System.Windows.Forms.Button();
+            this.btn_CloseShift = new System.Windows.Forms.Button();
             this.clockTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
@@ -127,82 +127,85 @@
             this.lbl_ToBePaid.TabIndex = 7;
             this.lbl_ToBePaid.Text = "To Be Paid   :";
             // 
-            // button1
+            // btn_LostTicket
             // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(90, 645);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(316, 63);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Lost Ticket";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_LostTicket.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btn_LostTicket.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_LostTicket.Location = new System.Drawing.Point(90, 645);
+            this.btn_LostTicket.Name = "btn_LostTicket";
+            this.btn_LostTicket.Size = new System.Drawing.Size(316, 63);
+            this.btn_LostTicket.TabIndex = 8;
+            this.btn_LostTicket.Text = "Lost Ticket";
+            this.btn_LostTicket.UseVisualStyleBackColor = true;
+            this.btn_LostTicket.Click += new System.EventHandler(this.btn_LostTicket_Click);
             // 
-            // button2
+            // btn_PendingVehicle
             // 
-            this.button2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(504, 645);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(316, 63);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "Pending Vehicle";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btn_PendingVehicle.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btn_PendingVehicle.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_PendingVehicle.Location = new System.Drawing.Point(504, 645);
+            this.btn_PendingVehicle.Name = "btn_PendingVehicle";
+            this.btn_PendingVehicle.Size = new System.Drawing.Size(316, 63);
+            this.btn_PendingVehicle.TabIndex = 9;
+            this.btn_PendingVehicle.Text = "Pending Vehicle";
+            this.btn_PendingVehicle.UseVisualStyleBackColor = true;
+            this.btn_PendingVehicle.Click += new System.EventHandler(this.btn_PendingVehicle_Click);
             // 
-            // button3
+            // btn_UnsendRecord
             // 
-            this.button3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(915, 645);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(316, 63);
-            this.button3.TabIndex = 10;
-            this.button3.Text = "Unsend Record";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btn_UnsendRecord.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btn_UnsendRecord.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_UnsendRecord.Location = new System.Drawing.Point(915, 645);
+            this.btn_UnsendRecord.Name = "btn_UnsendRecord";
+            this.btn_UnsendRecord.Size = new System.Drawing.Size(316, 63);
+            this.btn_UnsendRecord.TabIndex = 10;
+            this.btn_UnsendRecord.Text = "Unsend Record";
+            this.btn_UnsendRecord.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btn_SaveAndPrint
             // 
-            this.button4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(1332, 645);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(316, 63);
-            this.button4.TabIndex = 11;
-            this.button4.Text = "Save && Print";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btn_SaveAndPrint.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btn_SaveAndPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_SaveAndPrint.Location = new System.Drawing.Point(1332, 645);
+            this.btn_SaveAndPrint.Name = "btn_SaveAndPrint";
+            this.btn_SaveAndPrint.Size = new System.Drawing.Size(316, 63);
+            this.btn_SaveAndPrint.TabIndex = 11;
+            this.btn_SaveAndPrint.Text = "Save && Print";
+            this.btn_SaveAndPrint.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // btn_VehicleStatus
             // 
-            this.button5.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(255, 764);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(331, 63);
-            this.button5.TabIndex = 12;
-            this.button5.Text = "Vehicles Status";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btn_VehicleStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btn_VehicleStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_VehicleStatus.Location = new System.Drawing.Point(255, 764);
+            this.btn_VehicleStatus.Name = "btn_VehicleStatus";
+            this.btn_VehicleStatus.Size = new System.Drawing.Size(331, 63);
+            this.btn_VehicleStatus.TabIndex = 12;
+            this.btn_VehicleStatus.Text = "Vehicles Status";
+            this.btn_VehicleStatus.UseVisualStyleBackColor = true;
             // 
-            // button6
+            // btn_ComplimentaryTicket
             // 
-            this.button6.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(707, 764);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(378, 63);
-            this.button6.TabIndex = 13;
-            this.button6.Text = "Complementary Ticket";
-            this.button6.UseVisualStyleBackColor = true;
+            this.btn_ComplimentaryTicket.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btn_ComplimentaryTicket.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_ComplimentaryTicket.Location = new System.Drawing.Point(707, 764);
+            this.btn_ComplimentaryTicket.Name = "btn_ComplimentaryTicket";
+            this.btn_ComplimentaryTicket.Size = new System.Drawing.Size(378, 63);
+            this.btn_ComplimentaryTicket.TabIndex = 13;
+            this.btn_ComplimentaryTicket.Text = "Complementary Ticket";
+            this.btn_ComplimentaryTicket.UseVisualStyleBackColor = true;
             // 
-            // button7
+            // btn_CloseShift
             // 
-            this.button7.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.Location = new System.Drawing.Point(1144, 764);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(343, 63);
-            this.button7.TabIndex = 14;
-            this.button7.Text = "Close Shift";
-            this.button7.UseVisualStyleBackColor = true;
+            this.btn_CloseShift.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btn_CloseShift.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_CloseShift.Location = new System.Drawing.Point(1144, 764);
+            this.btn_CloseShift.Name = "btn_CloseShift";
+            this.btn_CloseShift.Size = new System.Drawing.Size(343, 63);
+            this.btn_CloseShift.TabIndex = 14;
+            this.btn_CloseShift.Text = "Close Shift";
+            this.btn_CloseShift.UseVisualStyleBackColor = true;
+            this.btn_CloseShift.Click += new System.EventHandler(this.btn_CloseShift_Click);
             // 
             // clockTimer
             // 
@@ -214,14 +217,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1787, 869);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_CloseShift);
+            this.Controls.Add(this.btn_ComplimentaryTicket);
+            this.Controls.Add(this.btn_VehicleStatus);
+            this.Controls.Add(this.btn_SaveAndPrint);
+            this.Controls.Add(this.btn_UnsendRecord);
+            this.Controls.Add(this.btn_PendingVehicle);
+            this.Controls.Add(this.btn_LostTicket);
             this.Controls.Add(this.lbl_ToBePaid);
             this.Controls.Add(this.lbl_Duration);
             this.Controls.Add(this.lbl_OutTime);
@@ -235,6 +239,7 @@
             this.Text = "MPSHomeScreen";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MPSLoad);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.btn_CloseShift_Click);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -250,13 +255,13 @@
         private System.Windows.Forms.Label lbl_OutTime;
         private System.Windows.Forms.Label lbl_Duration;
         private System.Windows.Forms.Label lbl_ToBePaid;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button btn_LostTicket;
+        private System.Windows.Forms.Button btn_PendingVehicle;
+        private System.Windows.Forms.Button btn_UnsendRecord;
+        private System.Windows.Forms.Button btn_SaveAndPrint;
+        private System.Windows.Forms.Button btn_VehicleStatus;
+        private System.Windows.Forms.Button btn_ComplimentaryTicket;
+        private System.Windows.Forms.Button btn_CloseShift;
         private System.Windows.Forms.Timer clockTimer;
     }
 }
