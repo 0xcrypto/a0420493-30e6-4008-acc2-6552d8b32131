@@ -52,7 +52,7 @@ namespace Parking.Database.CommandFactory
                                                 VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}' as Image,'{8}','{9}','{10}')");
 
             queries.Add("GetVehicleEntry", @"Select * from [tbl_parking] where [VehicleNumber] = '{0}'");
-                                                            
+
 
             queries.Add("GetUniqueCode", @"select cast((Abs(Checksum(NewId()))%10) as varchar(1)) +  char(ascii('a') + (Abs(Checksum(NewId()))%25)) + 
                                                 char(ascii('A')+(Abs(Checksum(NewId()))%25)) + left(newid(),5) as UniqueCode");
@@ -66,14 +66,10 @@ namespace Parking.Database.CommandFactory
                                                              [DocumentImage])
                                                 VALUES ('{0}','{1}','{2}','{3}','{4}')");
 
-            queries.Add("InsertMPSDeviceShift", @"INSERT INTO [tbl_MPSDeviceShift]
-                                                             ([DeviceId],
-                                                             [UserId],
-                                                             [InDateTime]) output INSERTED.Id
-                                                VALUES ('{0}','{1}','{2}')");
+            queries.Add("GetShiftData", @"select count(*) as RecordCount, sum([ParkingCharge]) as TotalCollection from [tbl_parking]
+                                                where ExitTime is not null and  ParkingCharge is not null  and ExitTime > '{0}'");
 
-            queries.Add("UpdateMPSDeviceShift", @"UPDATE [tbl_MPSDeviceShift] SET [OutDateTime] = '{0}' 
-                                               WHERE [Id] = CAST('{1}' AS UNIQUEIDENTIFIER)");
+
         }
 
         public void UpdateMasterSettings(string companyName,
@@ -118,7 +114,7 @@ namespace Parking.Database.CommandFactory
         }
 
         public void SaveVehicleEntry(string deviceId, Ticket ticket)
-        {            
+        {
             try
             {
                 var insertQuery = string.Format(queries["InsertVehicleEntry"], deviceId,
@@ -143,12 +139,12 @@ namespace Parking.Database.CommandFactory
         {
             try
             {
-                var getQuery = string.Format(queries["GetVehicleEntry"], vehicleNumber);                
+                var getQuery = string.Format(queries["GetVehicleEntry"], vehicleNumber);
                 var sqlCommand = sqlDataAccess.GetCommand(getQuery);
 
                 var result = sqlDataAccess.Execute(sqlCommand);
 
-                return result;                
+                return result;
             }
             catch (Exception exception)
             {
@@ -187,30 +183,26 @@ namespace Parking.Database.CommandFactory
             }
         }
 
-        public object SaveMPSUserShiftEntry(string deviceId, string userId, string inDateTime)
+        public Tuple<int, int> GetShiftData(string entryTime)
         {
             try
             {
-                var insertQuery = string.Format(queries["InsertMPSDeviceShift"], deviceId, userId, inDateTime);                
-                return sqlDataAccess.ExecuteNonQueryReturnsIdentity(insertQuery);
-            }
-            catch (Exception exception)
-            {
-                FileLogger.Log($"MPS User shift Enrty details could not be saved in database as : {exception.Message}");
-                throw;
-            }
-        }
+                var getQuery = string.Format(queries["GetShiftData"], entryTime);
+                var result = sqlDataAccess.Execute(getQuery);
+                int count = 0;
+                int collection = 0;
+                if (result.Rows.Count > 0)
+                {
 
-        public void SaveMPSUserShiftExit(string mpsUserEntryRecordIdentifier)
-        {
-            try
-            {
-                var updateQuery = string.Format(queries["UpdateMPSDeviceShift"], DateTime.Now.ToString(), mpsUserEntryRecordIdentifier);
-                sqlDataAccess.ExecuteNonQuery(updateQuery);
+                    count = (int)result.Rows[0]["RecordCount"];
+                    collection = (object)result.Rows[0]["TotalCollection"] == DBNull.Value ? 0 :(int)result.Rows[0]["TotalCollection"];
+
+                }
+                return Tuple.Create(count, collection);
             }
             catch (Exception exception)
             {
-                FileLogger.Log($"MPS User shift Exit details could not be saved in database as : {exception.Message}");
+                FileLogger.Log($"Shift Data Could not be retrieved from database as : {exception.Message}");
                 throw;
             }
         }

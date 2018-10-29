@@ -37,11 +37,8 @@ namespace Parking.Exit.Forms
                     return;
                 }                
 
-                //Make Entry for MPS User
-                var mpsUserEntryRecordIdentifier =_parkingDatabaseFactory.SaveMPSUserShiftEntry(MPSConfigurationReader.GetConfigurationSettings().MPSDeviceID, MPSConfigurationReader.GetConfigurationSettings().UserID, DateTime.Now.ToString());
-
                 //Show MPS Screen
-                ThreadPool.QueueUserWorkItem(MPSLaunch, mpsUserEntryRecordIdentifier);
+                ThreadPool.QueueUserWorkItem(MPSLaunch);
                 //Hide Log-In Screen
                 this.Hide();
             }
@@ -54,7 +51,7 @@ namespace Parking.Exit.Forms
 
         private void MPSLaunch(object Object)
         {
-            var mps = new MPS(Object.ToString());
+            var mps = new MPS();
             mps.ShowDialog();
         }
     }

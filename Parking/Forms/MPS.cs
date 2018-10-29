@@ -10,14 +10,10 @@ namespace Parking.Exit.Forms
     {
         private MPSSettings mpsSetting;
         private readonly ParkingDatabaseFactory _parkingDatabaseFactory;
+                      
 
-        private readonly string _mpsUserEntryRecordIdentifier;
-        private bool _shiftClosed;
-
-        public MPS(string mpsUserEntryRecordIdentifier)
+        public MPS()
         {
-            _shiftClosed = false;
-            _mpsUserEntryRecordIdentifier = mpsUserEntryRecordIdentifier;
             InitializeComponent();
             _parkingDatabaseFactory = new ParkingDatabaseFactory();
 
@@ -56,12 +52,23 @@ namespace Parking.Exit.Forms
 
         private void btn_CloseShift_Click(object sender, EventArgs e)
         {
-            if (!_shiftClosed)
+            try
             {
-                _parkingDatabaseFactory.SaveMPSUserShiftExit(_mpsUserEntryRecordIdentifier);
-                this.Close();
-                _shiftClosed = true;
+                var result = _parkingDatabaseFactory.GetShiftData("2018-10-29 23:28:09.000");
+
+                var closeShift = new CloseShift(result.Item1, result.Item2);
+                closeShift.ShowDialog();
             }
-        }                
+            catch (Exception s)
+            {
+                MessageBox.Show("Error Loading Shift Data", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }            
+        }
+
+        private void btn_VehicleStatus_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -1,5 +1,5 @@
-﻿using Parking.Common.Enums;
-using Parking.Common.Model;
+﻿using Parking.Common.Model;
+using System;
 using System.Data;
 
 namespace Parking.Interfaces
@@ -25,8 +25,6 @@ namespace Parking.Interfaces
 
         DataTable GetPendingVehicles();
 
-        object SaveMPSUserShiftEntry(string deviceId, string userId, string inDateTime);
-
-        void SaveMPSUserShiftExit(string mpsUserEntryRecordIdentifier);
+        Tuple<int, int> GetShiftData(string entryTime);
     }
 }
