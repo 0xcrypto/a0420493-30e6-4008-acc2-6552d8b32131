@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using Parking.Common;
 using Parking.Common.Model;
+using System.Data.SqlClient;
 
 namespace Parking.Database.CommandFactory
 {
@@ -48,10 +49,31 @@ namespace Parking.Database.CommandFactory
                                                              [IsParkingExitDetailsUploadedToServer])
                                                             
                                                               
-                                                VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}')");
+                                                VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}' as Image,'{8}','{9}','{10}')");
+
+            queries.Add("GetVehicleEntry", @"Select * from [tbl_parking] where [VehicleNumber] = '{0}'");
+                                                            
 
             queries.Add("GetUniqueCode", @"select cast((Abs(Checksum(NewId()))%10) as varchar(1)) +  char(ascii('a') + (Abs(Checksum(NewId()))%25)) + 
                                                 char(ascii('A')+(Abs(Checksum(NewId()))%25)) + left(newid(),5) as UniqueCode");
+
+            //MPS QUERIES
+            queries.Add("InsertLostTicket", @"INSERT INTO [tbl_LostTicket]
+                                                             ([Name],
+                                                             [VehicleNumber],
+                                                             [DocumentType],
+                                                             [DocumentNumber],
+                                                             [DocumentImage])
+                                                VALUES ('{0}','{1}','{2}','{3}','{4}')");
+
+            queries.Add("InsertMPSDeviceShift", @"INSERT INTO [tbl_MPSDeviceShift]
+                                                             ([DeviceId],
+                                                             [UserId],
+                                                             [InDateTime]) output INSERTED.Id
+                                                VALUES ('{0}','{1}','{2}')");
+
+            queries.Add("UpdateMPSDeviceShift", @"UPDATE [tbl_MPSDeviceShift] SET [OutDateTime] = '{0}' 
+                                               WHERE [Id] = CAST('{1}' AS UNIQUEIDENTIFIER)");
         }
 
         public void UpdateMasterSettings(string companyName,
@@ -115,6 +137,82 @@ namespace Parking.Database.CommandFactory
             var sqlCommand = sqlDataAccess.GetCommand(queries["GetUniqueCode"]);
             var dataRow = sqlDataAccess.Execute(sqlCommand).Rows[0];
             return dataRow[0].ToString();
+        }
+
+        public DataTable GetVehicleEntry(string vehicleNumber)
+        {
+            try
+            {
+                var getQuery = string.Format(queries["GetVehicleEntry"], vehicleNumber);                
+                var sqlCommand = sqlDataAccess.GetCommand(getQuery);
+
+                var result = sqlDataAccess.Execute(sqlCommand);
+
+                return result;                
+            }
+            catch (Exception exception)
+            {
+                FileLogger.Log($"Vehicle's parking information could not be find in database as : {exception.Message}");
+                throw;
+            }
+        }
+
+        public void SaveLostTicketInfo(string name, string vehicleNumber, byte documentType, string documentNumber)
+        {
+            try
+            {
+                var insertQuery = string.Format(queries["InsertLostTicket"], name,
+                    vehicleNumber, documentType, documentNumber, null);
+                sqlDataAccess.ExecuteNonQuery(insertQuery);
+            }
+            catch (Exception exception)
+            {
+                FileLogger.Log($"Lost Ticket Information Could not be saved in database as : {exception.Message}");
+                throw;
+            }
+        }
+
+        public DataTable GetPendingVehicles()
+        {
+            try
+            {
+                var cmd = new SqlCommand();
+                cmd.CommandText = "Get_PendingVehicles";
+                var result = sqlDataAccess.ExecuteDataReturningStoredProcedure(cmd);
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public object SaveMPSUserShiftEntry(string deviceId, string userId, string inDateTime)
+        {
+            try
+            {
+                var insertQuery = string.Format(queries["InsertMPSDeviceShift"], deviceId, userId, inDateTime);                
+                return sqlDataAccess.ExecuteNonQueryReturnsIdentity(insertQuery);
+            }
+            catch (Exception exception)
+            {
+                FileLogger.Log($"MPS User shift Enrty details could not be saved in database as : {exception.Message}");
+                throw;
+            }
+        }
+
+        public void SaveMPSUserShiftExit(string mpsUserEntryRecordIdentifier)
+        {
+            try
+            {
+                var updateQuery = string.Format(queries["UpdateMPSDeviceShift"], DateTime.Now.ToString(), mpsUserEntryRecordIdentifier);
+                sqlDataAccess.ExecuteNonQuery(updateQuery);
+            }
+            catch (Exception exception)
+            {
+                FileLogger.Log($"MPS User shift Exit details could not be saved in database as : {exception.Message}");
+                throw;
+            }
         }
     }
 }

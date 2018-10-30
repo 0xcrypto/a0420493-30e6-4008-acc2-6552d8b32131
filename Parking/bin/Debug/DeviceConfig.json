@@ -1,3 +1,9 @@
 {
- 
+  "MPSDeviceID": "99SSDB7",
+  "UserID": "a",
+  "UserPassword": "a",
+  "TdServerIPAddress": "192.168.1.11",
+  "TdServerPort": "1433",
+  "TdServerUsername": "sa",
+  "TdServerPassword": "Welcome1234"
 }

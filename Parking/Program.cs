@@ -14,7 +14,7 @@ namespace Parking.Exit
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MPS());
+            Application.Run(new LogIN());
         }
     }
 }
