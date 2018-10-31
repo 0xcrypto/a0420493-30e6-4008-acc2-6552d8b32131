@@ -59,14 +59,15 @@ namespace Parking.Database.CommandFactory
 
             //MPS QUERIES
             queries.Add("InsertLostTicket", @"INSERT INTO [tbl_LostTicket]
-                                                             ([Name],
+                                                             ([ParkingId],
+                                                             [Name],
                                                              [VehicleNumber],
                                                              [DocumentType],
                                                              [DocumentNumber],
                                                              [DocumentImage])
-                                                VALUES ('{0}','{1}','{2}','{3}','{4}')");
+                                                VALUES ('{0}','{1}','{2}','{3}','{4}','{5}')");
 
-            queries.Add("GetShiftData", @"select count(*) as RecordCount, sum([ParkingCharge]) as TotalCollection from [tbl_parking]
+            queries.Add("GetShiftData", @"select count(*) as RecordCount, (sum([ParkingCharge]) + sum(PenalityCharge)) as TotalCollection from [tbl_parking]
                                                 where ExitTime is not null and  ParkingCharge is not null  and ExitTime > '{0}'");
 
 
@@ -153,11 +154,11 @@ namespace Parking.Database.CommandFactory
             }
         }
 
-        public void SaveLostTicketInfo(string name, string vehicleNumber, byte documentType, string documentNumber)
+        public void SaveLostTicketInfo(string parkingId, string name, string vehicleNumber, byte documentType, string documentNumber)
         {
             try
             {
-                var insertQuery = string.Format(queries["InsertLostTicket"], name,
+                var insertQuery = string.Format(queries["InsertLostTicket"],parkingId, name,
                     vehicleNumber, documentType, documentNumber, null);
                 sqlDataAccess.ExecuteNonQuery(insertQuery);
             }
@@ -183,7 +184,7 @@ namespace Parking.Database.CommandFactory
             }
         }
 
-        public Tuple<int, int> GetShiftData(string entryTime)
+        public Tuple<int, int> GetShiftCollection(string entryTime)
         {
             try
             {
@@ -195,14 +196,14 @@ namespace Parking.Database.CommandFactory
                 {
 
                     count = (int)result.Rows[0]["RecordCount"];
-                    collection = (object)result.Rows[0]["TotalCollection"] == DBNull.Value ? 0 :(int)result.Rows[0]["TotalCollection"];
+                    collection = (object)result.Rows[0]["TotalCollection"] == DBNull.Value ? 0 : Convert.ToInt32( result.Rows[0]["TotalCollection"]);
 
                 }
                 return Tuple.Create(count, collection);
             }
             catch (Exception exception)
             {
-                FileLogger.Log($"Shift Data Could not be retrieved from database as : {exception.Message}");
+                FileLogger.Log($"Shift collection could not be retrieved from database as : {exception.Message}");
                 throw;
             }
         }

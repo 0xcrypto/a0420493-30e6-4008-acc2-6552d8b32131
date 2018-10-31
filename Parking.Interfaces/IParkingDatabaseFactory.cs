@@ -21,10 +21,10 @@ namespace Parking.Interfaces
 
         string GetUniqueCode();
 
-        void SaveLostTicketInfo(string name, string vehicleNumber, byte documentType, string documentNumber);
+        void SaveLostTicketInfo(string parkingId, string name, string vehicleNumber, byte documentType, string documentNumber);
 
         DataTable GetPendingVehicles();
 
-        Tuple<int, int> GetShiftData(string entryTime);
+        Tuple<int, int> GetShiftCollection(string entryTime);
     }
 }

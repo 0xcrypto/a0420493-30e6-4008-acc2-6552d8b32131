@@ -10,10 +10,11 @@ namespace Parking.Exit.Forms
     {
         private MPSSettings mpsSetting;
         private readonly ParkingDatabaseFactory _parkingDatabaseFactory;
-                      
 
-        public MPS()
+        private readonly string _mpsUserEntryTime;
+        public MPS(string mpsUserEntryTime)
         {
+            _mpsUserEntryTime = mpsUserEntryTime;
             InitializeComponent();
             _parkingDatabaseFactory = new ParkingDatabaseFactory();
 
@@ -54,12 +55,12 @@ namespace Parking.Exit.Forms
         {
             try
             {
-                var result = _parkingDatabaseFactory.GetShiftData("2018-10-29 23:28:09.000");
+                var result = _parkingDatabaseFactory.GetShiftCollection(_mpsUserEntryTime);
 
                 var closeShift = new CloseShift(result.Item1, result.Item2);
                 closeShift.ShowDialog();
             }
-            catch (Exception s)
+            catch (Exception)
             {
                 MessageBox.Show("Error Loading Shift Data", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

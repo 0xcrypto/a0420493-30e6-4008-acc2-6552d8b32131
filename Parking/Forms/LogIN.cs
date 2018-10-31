@@ -51,7 +51,7 @@ namespace Parking.Exit.Forms
 
         private void MPSLaunch(object Object)
         {
-            var mps = new MPS();
+            var mps = new MPS(DateTime.Now.ToString());
             mps.ShowDialog();
         }
     }

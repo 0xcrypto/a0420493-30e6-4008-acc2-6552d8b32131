@@ -3,12 +3,7 @@ using Parking.Common.Enums;
 using Parking.Database.CommandFactory;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Parking.Exit.Forms
@@ -16,6 +11,7 @@ namespace Parking.Exit.Forms
     public partial class LostTicket : Form
     {
         private readonly ParkingDatabaseFactory _prkingDatabaseFactory;
+        private Dictionary<string, string> _parkingIdMapper;
         public LostTicket()
         {
             InitializeComponent();
@@ -40,6 +36,7 @@ namespace Parking.Exit.Forms
                 }
 
                 var ticketList = new List<object>();
+                _parkingIdMapper = new Dictionary<string, string>();
                 foreach (DataRow item in result.Rows)
                 {
                     //var sss = Encoding.ASCII.GetBytes(item["DriverImage"].ToString().Trim());
@@ -49,6 +46,7 @@ namespace Parking.Exit.Forms
 
                     var vehicleType = Enum.Parse(typeof(VehicleType), item["VehicleType"].ToString().Trim()).ToString();
                     ticketList.Add(new { Ticket_Number = item["TicketNumber"], Vehicle_Number = item["VehicleNumber"], Vehicle_Type = vehicleType, Entry_Time = item["EntryTime"] });
+                    _parkingIdMapper.Add(item["TicketNumber"].ToString(), item["Id"].ToString());
                 }
 
                 gridView_VehicleList.DataSource = ticketList;
@@ -86,10 +84,23 @@ namespace Parking.Exit.Forms
             {
                 MessageBox.Show("Document number can not be empty, Please Enter a valid Document Number", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-
             }
 
-            _prkingDatabaseFactory.SaveLostTicketInfo(txtBox_Name.Text, txtBox_VehicleNumber.Text, byte.Parse(comboBox_DocumentType.SelectedValue.ToString()), txtBox_DocumentNumber.Text);
+            try
+            {
+                _parkingIdMapper.TryGetValue(gridView_VehicleList.CurrentRow.Cells[0].Value.ToString(), out string parkingId);
+                _prkingDatabaseFactory.SaveLostTicketInfo(parkingId, txtBox_Name.Text, txtBox_VehicleNumber.Text, byte.Parse(comboBox_DocumentType.SelectedValue.ToString()), txtBox_DocumentNumber.Text);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error Saving Lost Ticket Information", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            finally
+            {
+                _parkingIdMapper.Clear();
+                this.Close();
+            }
         }
 
         private void LoadComboxBox()
