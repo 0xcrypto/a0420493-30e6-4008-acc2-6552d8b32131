@@ -20,8 +20,8 @@ namespace Parking.Exit.Forms
 
             mpsSetting = MPSConfigurationReader.GetConfigurationSettings();
 
-           // if (mpsSetting.MPSDeviceID == null)
-             //   FileLogger.Log($"Problem Loading Configuration Information from Configuration File");
+            if (mpsSetting.MPSDeviceId == null)
+                FileLogger.Log($"Problem Loading Configuration Information from Configuration File");
 
         }
 

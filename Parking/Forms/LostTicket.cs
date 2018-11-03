@@ -20,18 +20,18 @@ namespace Parking.Exit.Forms
 
         private void btn_Search_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtBox_VehicleNumber.Text))
+            if (string.IsNullOrEmpty(txtVehicleNumber.Text))
             {
-                MessageBox.Show("Vehicle number Can not be empty, Please enter a valid Vehicle Nnumber", "MPS ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Vehicle number can't be empty, Please enter a valid vehicle number", "MPS ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
             {
-                var result = _prkingDatabaseFactory.GetVehicleEntry(txtBox_VehicleNumber.Text);
+                var result = _prkingDatabaseFactory.GetVehicleEntry(txtVehicleNumber.Text);
 
                 if (result == null || result.Rows.Count < 1)
                 {
-                    MessageBox.Show("Parking information for this vehicle was not found", "MPS ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No information found for the vehicle number provided", "MPS ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
 
@@ -45,51 +45,51 @@ namespace Parking.Exit.Forms
                     //ss.Add(new { Ticket_Number = item["TicketNumber"], Vehicle_Number = item["VehicleNumber"], Vehicle_Type= item["VehicleType"], Entry_Time = item["EntryTime"], Driver_Image = driverImage });
 
                     var vehicleType = Enum.Parse(typeof(VehicleType), item["VehicleType"].ToString().Trim()).ToString();
-                    ticketList.Add(new { Ticket_Number = item["TicketNumber"], Vehicle_Number = item["VehicleNumber"], Vehicle_Type = vehicleType, Entry_Time = item["EntryTime"] });
+                    ticketList.Add(new { TicketNumber = item["TicketNumber"], VehicleNumber = item["VehicleNumber"], VehicleType = vehicleType, EntryTime = item["EntryTime"] });
                     _parkingIdMapper.Add(item["TicketNumber"].ToString(), item["Id"].ToString());
                 }
 
-                gridView_VehicleList.DataSource = ticketList;
-                groupBox_VehicleOwnerDetails.Enabled = true;
+                gridViewVehicleList.DataSource = ticketList;
+                gbVehicleOwnerDetails.Enabled = true;
             }
             catch (Exception exception)
             {
-                FileLogger.Log($"Vehicle's parking information search failed as : {exception.Message}");
+                FileLogger.Log($"Problem searching vehicle information : {exception.Message}");
             }
         }
 
         private void LostTicket_Load(object sender, EventArgs e)
         {
-            LoadComboxBox();
+            LoadDocumentTypes();
         }
 
         private void button_Submit_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtBox_VehicleNumber.Text))
+            if (string.IsNullOrEmpty(txtVehicleNumber.Text))
             {
-                MessageBox.Show("Vehicle Number Can not be Empty, Please Enter a valid Vehicle Number", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Vehicle number can't be empty, Please enter a valid vehicle number", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (string.IsNullOrEmpty(txtBox_Name.Text))
+            if (string.IsNullOrEmpty(txtName.Text))
             {
-                MessageBox.Show("Name of the person Can not be Empty, Please Enter a valid Name", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Person name can't be empty, Please enter a valid name", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (comboBox_DocumentType.SelectedIndex <= 0)
+            if (cbDocumentType.SelectedIndex <= 0)
             {
-                MessageBox.Show("Please select a Identity Document", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please select document type", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (string.IsNullOrEmpty(txtBox_DocumentNumber.Text))
+            if (string.IsNullOrEmpty(txtDocumentNumber.Text))
             {
-                MessageBox.Show("Document number can not be empty, Please Enter a valid Document Number", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Document number can't be empty, Please enter a valid document number", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             try
             {
-                _parkingIdMapper.TryGetValue(gridView_VehicleList.CurrentRow.Cells[0].Value.ToString(), out string parkingId);
-                _prkingDatabaseFactory.SaveLostTicketInfo(parkingId, txtBox_Name.Text, txtBox_VehicleNumber.Text, byte.Parse(comboBox_DocumentType.SelectedValue.ToString()), txtBox_DocumentNumber.Text);
+                _parkingIdMapper.TryGetValue(gridViewVehicleList.CurrentRow.Cells[0].Value.ToString(), out string parkingId);
+                _prkingDatabaseFactory.SaveLostTicketInfo(parkingId, txtName.Text, txtVehicleNumber.Text, byte.Parse(cbDocumentType.SelectedValue.ToString()), txtDocumentNumber.Text);
             }
             catch (Exception)
             {
@@ -103,18 +103,18 @@ namespace Parking.Exit.Forms
             }
         }
 
-        private void LoadComboxBox()
+        private void LoadDocumentTypes()
         {
-            var comboSource = new Dictionary<string, string>();
-            comboSource.Add("Nothing", "<Select>");
+            var source = new Dictionary<string, string>();
+            source.Add("Nothing", "<Select>");
             foreach (var documentType in Enum.GetValues(typeof(DocumentType)))
             {
-                comboSource.Add(((int)(DocumentType)documentType).ToString(), documentType.ToString());
-                comboBox_DocumentType.DataSource = new BindingSource(comboSource, null);
-                comboBox_DocumentType.DisplayMember = "Value";
-                comboBox_DocumentType.ValueMember = "Key";
+                source.Add(((int)(DocumentType)documentType).ToString(), documentType.ToString());
+                cbDocumentType.DataSource = new BindingSource(source, null);
+                cbDocumentType.DisplayMember = "Value";
+                cbDocumentType.ValueMember = "Key";
             }
-            comboBox_DocumentType.SelectedIndex = 0;
+            cbDocumentType.SelectedIndex = 0;
         }
     }
 }

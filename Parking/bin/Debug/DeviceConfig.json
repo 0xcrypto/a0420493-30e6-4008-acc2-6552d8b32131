@@ -5,5 +5,6 @@
   "TdServerIPAddress": "192.168.1.11",
   "TdServerPort": "1433",
   "TdServerUsername": "sa",
-  "TdServerPassword": "Welcome1234"
+  "TdServerPassword": "Welcome1234",
+  "VehicleStatusPassword": "a"
 }

@@ -2,8 +2,8 @@
 {
     public class MPSSettings
     {
-        public string MPSDeviceID { get; set; }
-        public string UserID { get; set; }
+        public string MPSDeviceId { get; set; }
+        public string UserId { get; set; }
         public string UserPassword { get; set; }
     }
 }

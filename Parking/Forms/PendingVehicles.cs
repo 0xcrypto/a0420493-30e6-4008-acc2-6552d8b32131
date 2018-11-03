@@ -25,9 +25,9 @@ namespace Parking.Exit.Forms
             try
             {
                 var result = _prkingDatabaseFactory.GetPendingVehicles();
-                if (result.Rows.Count <= 0)
+                if (result.Rows.Count == 0)
                 {
-                    MessageBox.Show("There are no pending vehicles in the Parking", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No vehicle found in parking area", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.Close();
                 }
 
@@ -38,12 +38,11 @@ namespace Parking.Exit.Forms
                     gridView_PendingVehicles.Rows.Add(serialNo, row["VehicleNumber"].ToString(), row["EntryTime"].ToString());
                 }
 
-                lbl_TotalPending.Text = $"Total Pending  :  {result.Rows.Count}";
+                lblTotalVehiclePending.Text = $"Total Pending  :  {result.Rows.Count}";
             }
             catch (Exception exception)
             {
-
-                FileLogger.Log($"Pending Vehicles list Could not be retrieved from database as : {exception.Message}");
+                FileLogger.Log($"Problem retrieving pending vehicles as : {exception.Message}");
             }
         }
 

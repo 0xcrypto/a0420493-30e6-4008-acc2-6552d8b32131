@@ -20,31 +20,31 @@ namespace Parking.Exit.Forms
         {
             try
             {
-                if (txtBox_UserName.Text == string.Empty)
+                if (txtBoxUserName.Text == string.Empty)
                 {
-                    MessageBox.Show("User Name Can not be Empty, Please Enter a valid User Name", null, MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                    MessageBox.Show("Username Can't be empty, Please enter a valid Username", null, MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                     return;
                 }
-                if (txtBox_Password.Text == string.Empty)
+                if (txtBoxPassword.Text == string.Empty)
                 {
-                    MessageBox.Show("Password can not be Empty, Please Enter a valid Password", null, MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                    MessageBox.Show("Password can't be empty, Please enter a valid Password", null, MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                     return;
                 }
 
-                if (txtBox_UserName.Text != MPSConfigurationReader.GetConfigurationSettings().UserID || txtBox_Password.Text != MPSConfigurationReader.GetConfigurationSettings().UserPassword)
+                if (txtBoxUserName.Text != MPSConfigurationReader.GetConfigurationSettings().UserId || txtBoxPassword.Text != MPSConfigurationReader.GetConfigurationSettings().UserPassword)
                 {
-                    MessageBox.Show("Invalid Credentials, Please Enter valid credentials", null, MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                    MessageBox.Show("Username or Password didn't match", null, MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                     return;
                 }                
 
-                //Show MPS Screen
+                //Show MPS Screen                
                 ThreadPool.QueueUserWorkItem(MPSLaunch);
                 //Hide Log-In Screen
                 this.Hide();
             }
             catch (Exception exception)
             {
-                FileLogger.Log($"Login for user {txtBox_UserName.Text} failed as : {exception.Message} ");
+                FileLogger.Log($"Login for user {txtBoxUserName.Text} failed as : {exception.Message} ");
                 this.Close();
             }
         }
