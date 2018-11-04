@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\CloseShift.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CloseShift.Designer.cs">
+      <DependentUpon>CloseShift.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\LogIN.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +81,9 @@
     <Compile Include="Forms\MPS.Designer.cs">
       <DependentUpon>MPS.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\CloseShift.resx">
+      <DependentUpon>CloseShift.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\LogIN.resx">
       <DependentUpon>LogIN.cs</DependentUpon>
     </EmbeddedResource>

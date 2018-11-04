@@ -11,20 +11,17 @@ namespace Parking.Exit.Forms
         private MPSSettings mpsSetting;
         private readonly ParkingDatabaseFactory _parkingDatabaseFactory;
 
-        private readonly string _mpsUserEntryRecordIdentifier;
-        private bool _shiftClosed;
-
-        public MPS(string mpsUserEntryRecordIdentifier)
+        private readonly string _mpsUserEntryTime;
+        public MPS(string mpsUserEntryTime)
         {
-            _shiftClosed = false;
-            _mpsUserEntryRecordIdentifier = mpsUserEntryRecordIdentifier;
+            _mpsUserEntryTime = mpsUserEntryTime;
             InitializeComponent();
             _parkingDatabaseFactory = new ParkingDatabaseFactory();
 
             mpsSetting = MPSConfigurationReader.GetConfigurationSettings();
 
-           // if (mpsSetting.MPSDeviceID == null)
-             //   FileLogger.Log($"Problem Loading Configuration Information from Configuration File");
+            if (mpsSetting.MPSDeviceId == null)
+                FileLogger.Log($"Problem Loading Configuration Information from Configuration File");
 
         }
 
@@ -56,12 +53,23 @@ namespace Parking.Exit.Forms
 
         private void btn_CloseShift_Click(object sender, EventArgs e)
         {
-            if (!_shiftClosed)
+            try
             {
-                _parkingDatabaseFactory.SaveMPSUserShiftExit(_mpsUserEntryRecordIdentifier);
-                this.Close();
-                _shiftClosed = true;
+                var result = _parkingDatabaseFactory.GetShiftCollection(_mpsUserEntryTime);
+
+                var closeShift = new CloseShift(result.Item1, result.Item2);
+                closeShift.ShowDialog();
             }
-        }                
+            catch (Exception)
+            {
+                MessageBox.Show("Error Loading Shift Data", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }            
+        }
+
+        private void btn_VehicleStatus_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

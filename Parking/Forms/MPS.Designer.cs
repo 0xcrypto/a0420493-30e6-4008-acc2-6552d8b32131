@@ -183,6 +183,7 @@
             this.btn_VehicleStatus.TabIndex = 12;
             this.btn_VehicleStatus.Text = "Vehicles Status";
             this.btn_VehicleStatus.UseVisualStyleBackColor = true;
+            this.btn_VehicleStatus.Click += new System.EventHandler(this.btn_VehicleStatus_Click);
             // 
             // btn_ComplimentaryTicket
             // 
@@ -239,7 +240,6 @@
             this.Text = "MPSHomeScreen";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MPSLoad);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.btn_CloseShift_Click);
             this.ResumeLayout(false);
             this.PerformLayout();
 

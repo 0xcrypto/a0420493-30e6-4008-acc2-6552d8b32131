@@ -1,5 +1,5 @@
-﻿using Parking.Common.Enums;
-using Parking.Common.Model;
+﻿using Parking.Common.Model;
+using System;
 using System.Data;
 
 namespace Parking.Interfaces
@@ -21,12 +21,10 @@ namespace Parking.Interfaces
 
         string GetUniqueCode();
 
-        void SaveLostTicketInfo(string name, string vehicleNumber, byte documentType, string documentNumber);
+        void SaveLostTicketInfo(string parkingId, string name, string vehicleNumber, byte documentType, string documentNumber);
 
         DataTable GetPendingVehicles();
 
-        object SaveMPSUserShiftEntry(string deviceId, string userId, string inDateTime);
-
-        void SaveMPSUserShiftExit(string mpsUserEntryRecordIdentifier);
+        Tuple<int, int> GetShiftCollection(string entryTime);
     }
 }

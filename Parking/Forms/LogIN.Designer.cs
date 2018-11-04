@@ -30,8 +30,8 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtBox_UserName = new System.Windows.Forms.TextBox();
-            this.txtBox_Password = new System.Windows.Forms.TextBox();
+            this.txtBoxUserName = new System.Windows.Forms.TextBox();
+            this.txtBoxPassword = new System.Windows.Forms.TextBox();
             this.btn_Submit = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -56,23 +56,23 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Password     :";
             // 
-            // txtBox_UserName
+            // txtBoxUserName
             // 
-            this.txtBox_UserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBox_UserName.Location = new System.Drawing.Point(398, 167);
-            this.txtBox_UserName.MaxLength = 50;
-            this.txtBox_UserName.Name = "txtBox_UserName";
-            this.txtBox_UserName.Size = new System.Drawing.Size(295, 41);
-            this.txtBox_UserName.TabIndex = 1;
+            this.txtBoxUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxUserName.Location = new System.Drawing.Point(398, 167);
+            this.txtBoxUserName.MaxLength = 50;
+            this.txtBoxUserName.Name = "txtBoxUserName";
+            this.txtBoxUserName.Size = new System.Drawing.Size(295, 41);
+            this.txtBoxUserName.TabIndex = 1;
             // 
-            // txtBox_Password
+            // txtBoxPassword
             // 
-            this.txtBox_Password.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBox_Password.Location = new System.Drawing.Point(398, 240);
-            this.txtBox_Password.Name = "txtBox_Password";
-            this.txtBox_Password.PasswordChar = '*';
-            this.txtBox_Password.Size = new System.Drawing.Size(295, 41);
-            this.txtBox_Password.TabIndex = 3;
+            this.txtBoxPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxPassword.Location = new System.Drawing.Point(398, 240);
+            this.txtBoxPassword.Name = "txtBoxPassword";
+            this.txtBoxPassword.PasswordChar = '*';
+            this.txtBoxPassword.Size = new System.Drawing.Size(295, 41);
+            this.txtBoxPassword.TabIndex = 3;
             // 
             // btn_Submit
             // 
@@ -103,8 +103,8 @@
             this.ClientSize = new System.Drawing.Size(866, 625);
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.btn_Submit);
-            this.Controls.Add(this.txtBox_Password);
-            this.Controls.Add(this.txtBox_UserName);
+            this.Controls.Add(this.txtBoxPassword);
+            this.Controls.Add(this.txtBoxUserName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "LogIN";
@@ -119,8 +119,8 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtBox_UserName;
-        private System.Windows.Forms.TextBox txtBox_Password;
+        private System.Windows.Forms.TextBox txtBoxUserName;
+        private System.Windows.Forms.TextBox txtBoxPassword;
         private System.Windows.Forms.Button btn_Submit;
         private System.Windows.Forms.Button btn_Cancel;
     }
