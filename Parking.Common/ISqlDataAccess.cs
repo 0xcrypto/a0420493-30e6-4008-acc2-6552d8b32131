@@ -61,10 +61,6 @@ namespace Parking.Common
         /// <returns></returns>
         DataTable ExecuteDataReturningStoredProcedure(SqlCommand command);
 
-        /// <summary>
-        /// 
-        /// </summary>
-
         object ExecuteNonQueryReturnsIdentity(string sql);
     }
 }
